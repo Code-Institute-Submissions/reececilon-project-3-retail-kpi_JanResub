@@ -23,9 +23,14 @@ def convert_to_int(data):
     int_list = []
     for ind in data:
         int_list.append(int(ind))
-    print(int_list)
+    return int_list
 
-    
+def add_to_worksheet(data, sheet):
+    print(data)
+    print(f'Updating {sheet}...')
+    add_worksheet = SHEET.worksheet(sheet)
+    add_worksheet.append_row(data)
+    print(f'{sheet} update complete.')
 
 def main():
     independs = [] 
@@ -33,6 +38,7 @@ def main():
     total_sales = retail_independents(footfall, "total sales")
     num_sales = retail_independents(total_sales, "num sales")
     independents = retail_independents(num_sales, "num items sold")
-    convert_to_int(independents)
+    int_data = convert_to_int(independents)
+    add_to_worksheet(int_data, 'independents')
 
 main()
