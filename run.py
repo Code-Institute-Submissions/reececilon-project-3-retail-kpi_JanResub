@@ -1,3 +1,38 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+import gspread
+from google.oauth2.service_account import Credentials
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('Retailing')
+
+def retail_independents(ldata, data):
+    independents = ldata
+
+    data_type = input(f'Input {data}:\n')
+    independents.append(data_type)
+    return independents
+
+def convert_to_int(data):
+    int_list = []
+    for ind in data:
+        int_list.append(int(ind))
+    print(int_list)
+
+    
+
+def main():
+    independs = [] 
+    footfall = retail_independents(independs, "footfall")
+    total_sales = retail_independents(footfall, "total sales")
+    num_sales = retail_independents(total_sales, "num sales")
+    independents = retail_independents(num_sales, "num items sold")
+    convert_to_int(independents)
+
+main()
