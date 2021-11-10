@@ -12,7 +12,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Retailing')
 
-def retail_independents(ldata, data):
+def list_retail_independents(ldata, data):
+    """
+    Lists the inputs required for the worksheet
+    """
+
     independents = ldata
 
     data_type = input(f'Input {data}:\n')
@@ -20,12 +24,24 @@ def retail_independents(ldata, data):
     return independents
 
 def convert_to_int(data):
-    int_list = []
-    for ind in data:
-        int_list.append(int(ind))
+    """
+    Converts the inouts into integers and checks that data is valid by throwing an error when data 
+    """
+    try:
+        int_list = []
+        for ind in data:
+            int_list.append(int(ind))
+    except:
+        print("Invalid input! Input values must be integer values. Please try again.")
+        main()
+
     return int_list
 
 def add_to_worksheet(data, sheet):
+    """
+    Updates the worksheet with the inputs
+    """
+
     print(data)
     print(f'Updating {sheet}...')
     add_worksheet = SHEET.worksheet(sheet)
@@ -34,11 +50,12 @@ def add_to_worksheet(data, sheet):
 
 def main():
     independs = [] 
-    footfall = retail_independents(independs, "footfall")
-    total_sales = retail_independents(footfall, "total sales")
-    num_sales = retail_independents(total_sales, "num sales")
-    independents = retail_independents(num_sales, "num items sold")
+    footfall = list_retail_independents(independs, "footfall")
+    total_sales = list_retail_independents(footfall, "total sales")
+    num_sales = list_retail_independents(total_sales, "num sales")
+    independents = list_retail_independents(num_sales, "num items sold")
     int_data = convert_to_int(independents)
     add_to_worksheet(int_data, 'independents')
+    
 
 main()
