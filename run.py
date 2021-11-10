@@ -88,7 +88,21 @@ def average_sale_per_customer(data):
     apc = int(sum_sales_recent) / int(num_sales_recent)
 
     dependents1.append(apc)
-    print(dependents1)
+    return dependents1
+
+def sales_expectation(data):
+    """
+    compares the sum sales to the target sum sales to quantify how they vary
+    """
+    dependents1 = data
+    sum_sales_recent = SHEET.worksheet('independents').col_values(2)[-1]
+    target_sum_sales = SHEET.worksheet('dependents2').col_values(1)[-1]
+
+    exp = ((int(sum_sales_recent) - int(target_sum_sales)) / int(target_sum_sales)) * 100
+
+    dependents1.append(exp)
+    return dependents1
+
     
 
 def main():
@@ -97,11 +111,13 @@ def main():
     total_sales = list_retail_independents(footfall, "total sales")
     num_sales = list_retail_independents(total_sales, "num sales")
     independents = list_retail_independents(num_sales, "num items sold")
-    int_data = convert_to_int(independents)
-    add_to_worksheet(int_data, 'independents')
+    ind_data = convert_to_int(independents)
+    add_to_worksheet(ind_data, 'independents')
     convert = conversion()
-    items = items_per_customer(convert)
-    average_sale_per_customer(items)
+    ipc = items_per_customer(convert)
+    apc = average_sale_per_customer(ipc)
+    dep1 = sales_expectation(apc)
+    add_to_worksheet(dep1, 'dependents1')
 
 
 main()
