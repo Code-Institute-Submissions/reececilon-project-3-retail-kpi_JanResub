@@ -48,6 +48,17 @@ def add_to_worksheet(data, sheet):
     add_worksheet.append_row(data)
     print(f'{sheet} update complete.')
 
+def conversion():
+    """
+    Conversion is the number of customers that enter the store and make a purchase
+    """
+    f_fall_recent = SHEET.worksheet('independents').col_values(1)[-1]
+    num_sales_recent = SHEET.worksheet('independents').col_values(3)[-1]
+
+    conversion = int(num_sales_recent) / int(f_fall_recent) * 100
+    print(conversion)
+    
+
 def main():
     independs = [] 
     footfall = list_retail_independents(independs, "footfall")
@@ -56,6 +67,8 @@ def main():
     independents = list_retail_independents(num_sales, "num items sold")
     int_data = convert_to_int(independents)
     add_to_worksheet(int_data, 'independents')
-    
+    conversion()
+
+
 
 main()
