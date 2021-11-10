@@ -52,11 +52,43 @@ def conversion():
     """
     Conversion is the number of customers that enter the store and make a purchase
     """
+
+    dependents1 = []
     f_fall_recent = SHEET.worksheet('independents').col_values(1)[-1]
     num_sales_recent = SHEET.worksheet('independents').col_values(3)[-1]
 
     conversion = int(num_sales_recent) / int(f_fall_recent) * 100
-    print(conversion)
+
+    dependents1.append(conversion)
+    return dependents1
+
+def items_per_customer(data):
+    """
+    Calculates the items per customer: IPC. and appends to the dependents list
+    """
+
+    dependents1 = data
+    total_items_sold_recent = SHEET.worksheet('independents').col_values(4)[-1]
+    num_sales_recent = SHEET.worksheet('independents').col_values(3)[-1]
+
+    ipc = int(total_items_sold_recent) / int(num_sales_recent)
+
+    dependents1.append(ipc)
+    return dependents1
+
+def average_sale_per_customer(data):
+    """
+    Calculates the average sale per customer: APC. and then appends this to the dependents list.
+    """
+
+    dependents1 = data
+    sum_sales_recent = SHEET.worksheet('independents').col_values(2)[-1]
+    num_sales_recent = SHEET.worksheet('independents').col_values(3)[-1]
+
+    apc = int(sum_sales_recent) / int(num_sales_recent)
+
+    dependents1.append(apc)
+    print(dependents1)
     
 
 def main():
@@ -67,8 +99,9 @@ def main():
     independents = list_retail_independents(num_sales, "num items sold")
     int_data = convert_to_int(independents)
     add_to_worksheet(int_data, 'independents')
-    conversion()
-
+    convert = conversion()
+    items = items_per_customer(convert)
+    average_sale_per_customer(items)
 
 
 main()
