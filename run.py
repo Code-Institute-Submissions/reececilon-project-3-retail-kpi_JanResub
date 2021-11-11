@@ -103,8 +103,25 @@ def sales_expectation(data):
     dependents1.append(exp)
     return dependents1
 
-    
+def next_sum_sales_target():
+    """
+    calculates the next days target sales by taking an average of the 5 sum sales
+    """
 
+    dependents2 = []
+    sum_sales = SHEET.worksheet('independents').col_values(2)
+    total = 0
+
+    for i in range(len(sum_sales)):
+        if (len(sum_sales) - i) <= 5:
+            total += int(sum_sales[i])
+    
+    next_sales_target = total / 5
+    
+    dependents2.append(next_sales_target)
+
+    return dependents2
+    
 def main():
     independs = [] 
     footfall = list_retail_independents(independs, "footfall")
@@ -118,6 +135,7 @@ def main():
     apc = average_sale_per_customer(ipc)
     dep1 = sales_expectation(apc)
     add_to_worksheet(dep1, 'dependents1')
-
+    next_sum = next_sum_sales_target()
+    add_to_worksheet(next_sum, 'dependents2')
 
 main()
