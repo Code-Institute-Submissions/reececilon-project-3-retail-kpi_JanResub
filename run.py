@@ -119,6 +119,7 @@ def next_sum_sales_target():
     next_sales_target = total / 5
     
     dependents2.append(next_sales_target)
+    print(dependents2)
 
     return dependents2
     
