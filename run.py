@@ -26,21 +26,21 @@ def begin():
     """)
 
     while True:
-        user_choice = int(input("Which task would you like to complete: \n"))
+        user_choice = int(input("\nWhich task would you like to complete: \n"))
         if user_choice == 1:
             print("\nOkay, ready to input today's sales figures...\n")
             main()
         elif user_choice == 2:
-            sales_target = SHEET.worksheet('dependents2').col_values(1)[-1]
+            sales_target = SHEET.worksheet('sum sales target').col_values(1)[-1]
             
-            print("Here is today's sales target: ")
+            print("Here is today's sales target in £: ")
             print(sales_target)
         elif user_choice == 3:
             print("You chose to exit this app...")
             exit_program()
             break
         else:
-            print("Invalid choice. Please choose from the menu above a number from 1 to 5.\n")
+            print("Invalid choice. Please choose from the menu above a number from 1 to 3.\n")
     
 def exit_program():
     """
@@ -178,6 +178,70 @@ def next_sum_sales_target():
     return dependents2
 
 
+def view_worksheet(data):
+    """
+    Allows the user to view most recently updated worksheet data
+    """
+
+    
+
+    list1 = []
+    list2 = []
+    val = SHEET.worksheet(data)
+
+    
+    for ind in range(1, 5):
+        value1 = val.col_values(ind)[0]
+        value2 = val.col_values(ind)[-1]
+        list1.append(value1)
+        list2.append(value2)
+    
+    request = zip(list1,list2)
+
+    print(dict(request))
+
+
+def reset():
+    SHEET.worksheet.delete_row(8)
+
+
+def options():
+    """
+    Gives the user further options to choose from
+    """
+
+    print("""
+    ----------------------MENU-----------------------
+    1. View updated sales figures\n\
+    2. View updated KPIs\n\
+    3. View next day sales target\n\
+    4. Reset most recent sales figures and KPIs\n\
+    5. Exit\n
+    """)
+
+    while True:
+        user_choice = int(input("\nWhich task would you like to complete: \n"))
+        if user_choice == 1:
+            print("\nOkay, here are the sales figures you submitted today...\n")
+            view_worksheet("sales figures")
+        elif user_choice == 2:
+            print("\nOkay, here are the updated KPIs from today...\n")
+            view_worksheet("KPIs")
+        elif user_choice == 3:
+            print("\nOkay, here is the sales target for tomorrow...\n")
+            sales_target = SHEET.worksheet("sum sales target").col_values(1)[-1]
+            print(f'Next Trg: {sales_target}')
+        elif user_choice == 4:
+            print("\nRight, I will reset the last sales figures and KPIs...\n")
+            reset()
+        elif user_choice == 5:
+            print("\nYou chose to exit this app...")
+            exit_program()
+            break
+        else:
+            print("Invalid choice. Please choose from the menu above a number from 1 to 5.\n")
+
+
 def main():
     independs = [] 
     footfall = list_retail_independents(independs, "footfall")
@@ -193,6 +257,7 @@ def main():
     add_to_worksheet(dep1, 'KPIs')
     next_sum = next_sum_sales_target()
     add_to_worksheet(next_sum, 'sum sales target')
+    options()
 
 
 print("------------------------------------------------------")
