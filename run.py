@@ -64,7 +64,8 @@ def list_retail_independents(ldata, data):
     if len(independents) == 0:
         print("Footfall is the number of clients or customers that enter the store.")
     elif len(independents) == 1:
-        print("\nsum sales is the total income or revenue made during business hours. Measured in £")
+        print("\nsum sales is the total income or revenue made during business hours.")
+        print("Measured in £")
     elif len(independents) == 2:
         print("\nnum sales is the number of customers that made a purchase.")
     else:
