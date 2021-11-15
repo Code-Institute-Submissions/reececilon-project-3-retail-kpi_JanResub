@@ -42,8 +42,8 @@ def begin():
             break
         else:
             print("Invalid choice. Please choose from the menu above a number from 1 to 3.\n")
-  
-    
+
+
 def exit_program():
     """
     Exits the application.
@@ -148,7 +148,7 @@ def average_sale_per_customer(data):
 
 def sales_expectation(data):
     """
-    compares the sum sales to the target sum sales to quantify how they vary
+    compares the sum sales to the target sum sales to quantify how they vary as a percentage
     """
     dependents1 = data
     sum_sales_recent = SHEET.worksheet('sales figures').col_values(2)[-1]
