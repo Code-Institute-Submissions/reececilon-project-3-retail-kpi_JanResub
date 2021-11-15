@@ -80,6 +80,7 @@ def convert_to_int(data):
     """
     Converts the sales_figures list items into integers and checks that data is valid by throwing an error when data is invalid
     """
+
     try:
         int_list = []
         for ind in data:
@@ -151,6 +152,7 @@ def sales_expectation(data):
     """
     compares the sum sales to the target sum sales to quantify how they vary as a percentage
     """
+
     dependents1 = data
     sum_sales_recent = SHEET.worksheet('sales figures').col_values(2)[-1]
     target_sum_sales = SHEET.worksheet('sum sales target').col_values(1)[-1]
@@ -186,13 +188,10 @@ def view_worksheet(data):
     Allows the user to view most recently updated worksheet data
     """
 
-    
-
     list1 = []
     list2 = []
     val = SHEET.worksheet(data)
 
-    
     for ind in range(1, 5):
         value1 = val.col_values(ind)[0]
         value2 = val.col_values(ind)[-1]
@@ -270,6 +269,10 @@ def options():
 
 
 def main():
+    """
+    The main function that calls functions for core purpose of app
+    """
+
     independs = [] 
     footfall = list_retail_independents(independs, "footfall")
     total_sales = list_retail_independents(footfall, "sum sales")
