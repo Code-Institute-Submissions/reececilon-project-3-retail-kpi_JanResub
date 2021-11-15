@@ -42,6 +42,7 @@ def begin():
             break
         else:
             print("Invalid choice. Please choose from the menu above a number from 1 to 3.\n")
+  
     
 def exit_program():
     """
@@ -225,7 +226,6 @@ def reset():
     begin()
 
 
-
 def options():
     """
     Gives the user further options to choose from
@@ -291,7 +291,6 @@ print("-----------------------Welcome!-----------------------")
 print("-----------------This is a retail app-----------------")
 print("-------This app allows the user to analyse KPIs-------")
 print("---------------Choose from the menu below-------------")
-
 
 
 begin()
