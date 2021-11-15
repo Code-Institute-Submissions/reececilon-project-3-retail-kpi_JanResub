@@ -155,7 +155,7 @@ def sales_expectation(data):
     sum_sales_recent = SHEET.worksheet('sales figures').col_values(2)[-1]
     target_sum_sales = SHEET.worksheet('sum sales target').col_values(1)[-1]
 
-    exp = ((int(sum_sales_recent) - int(target_sum_sales)) / int(target_sum_sales)) * 100
+    exp = ((int(sum_sales_recent) - float(target_sum_sales)) / float(target_sum_sales)) * 100
 
     dependents1.append(exp)
     return dependents1
