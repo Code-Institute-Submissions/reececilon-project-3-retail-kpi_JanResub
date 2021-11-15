@@ -30,6 +30,7 @@ def begin():
         if user_choice == 1:
             print("\nOkay, ready to input today's sales figures...\n")
             main()
+            break
         elif user_choice == 2:
             sales_target = SHEET.worksheet('sum sales target').col_values(1)[-1]
             
@@ -62,7 +63,7 @@ def list_retail_independents(ldata, data):
     if len(independents) == 0:
         print("Footfall is the number of clients or customers that enter the store.")
     elif len(independents) == 1:
-        print("\nsum sales is the total income made during business hours.")
+        print("\nsum sales is the total income or revenue made during business hours. Measured in £")
     elif len(independents) == 2:
         print("\nnum sales is the number of customers that made a purchase.")
     else:
@@ -202,13 +203,36 @@ def view_worksheet(data):
 
 
 def reset():
-    SHEET.worksheet.delete_row(8)
+    
+    collumn1 = SHEET.worksheet('sales figures').col_values(1)
+    last_row1 = len(collumn1)
+    
+    print("Today's sales figures have been reset.")
+    wsheet_sales = SHEET.worksheet('sales figures').delete_rows(last_row1)
+
+    collumn2 = SHEET.worksheet('KPIs').col_values(1)
+    last_row2 = len(collumn2)
+    
+    print("KPIs for today have been reset.")
+    wsheet_kpi = SHEET.worksheet('KPIs').delete_rows(last_row2)
+
+    collumn3 = SHEET.worksheet('sum sales target').col_values(1)
+    last_row3 = len(collumn3)
+
+    print("Recent sum sales target has been reset.")
+    wsheet_target = SHEET.worksheet('sum sales target').delete_rows(last_row3)
+
+    begin()
+
 
 
 def options():
     """
     Gives the user further options to choose from
     """
+
+    print("Worksheet has been updated with new sales figures, KPIs and sales target.")
+    print("Select from the menu below, What you would like to do next.")
 
     print("""
     ----------------------MENU-----------------------
@@ -228,12 +252,14 @@ def options():
             print("\nOkay, here are the updated KPIs from today...\n")
             view_worksheet("KPIs")
         elif user_choice == 3:
-            print("\nOkay, here is the sales target for tomorrow...\n")
+            print("\nOkay, here is the sales target for tomorrow,")
+            print("measured in £:\n")
             sales_target = SHEET.worksheet("sum sales target").col_values(1)[-1]
             print(f'Next Trg: {sales_target}')
         elif user_choice == 4:
             print("\nRight, I will reset the last sales figures and KPIs...\n")
             reset()
+            break
         elif user_choice == 5:
             print("\nYou chose to exit this app...")
             exit_program()
@@ -265,5 +291,7 @@ print("-----------------------Welcome!-----------------------")
 print("-----------------This is a retail app-----------------")
 print("-------This app allows the user to analyse KPIs-------")
 print("---------------Choose from the menu below-------------")
+
+
 
 begin()
