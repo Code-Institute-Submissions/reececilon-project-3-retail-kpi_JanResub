@@ -18,14 +18,14 @@ def begin():
     Starts the application, allowing the user to chose what they would like to do would like to do
     """
 
-    print("""
-    ----------------------MENU-----------------------
-    1. Input today's sales figures and calculate KPIs\n\
-    2. View today's sales target\n\
-    3. Exit\n
-    """)
-
     while True:
+        print("""
+        ----------------------MENU-----------------------
+        1. Input today's sales figures and calculate KPIs\n\
+        2. View today's sales target\n\
+        3. Exit\n
+        """)
+
         user_choice = int(input("\nWhich task would you like to complete: \n"))
         if user_choice == 1:
             print("\nOkay, ready to input today's sales figures...\n")
@@ -71,8 +71,20 @@ def list_retail_independents(ldata, data):
     else:
         print("\nnum items is the total number of items sold.")
 
-    data_type = input(f'Submit {data}:\n')
+    while True:
+        try:
+            data_type = int(input(f'Submit {data}:\n'))
+            if data_type > 0:
+                break
+            print(f'{data} cannot be a negative value. Please try again.')
+        except Exception as e:
+            print(f'{data_type} is not an integer.')
+            print(f'{data} must be an integer number. Please try again.')
+
+        
+
     independents.append(data_type)
+
     return independents
 
 
@@ -113,8 +125,8 @@ def conversion():
     num_sales_recent = SHEET.worksheet('sales figures').col_values(3)[-1]
 
     conversion = int(num_sales_recent) / int(f_fall_recent) * 100
-
     dependents1.append(conversion)
+
     return dependents1
 
 
@@ -128,8 +140,8 @@ def items_per_customer(data):
     num_sales_recent = SHEET.worksheet('sales figures').col_values(3)[-1]
 
     ipc = int(total_items_sold_recent) / int(num_sales_recent)
-
     dependents1.append(ipc)
+
     return dependents1
 
 
@@ -143,8 +155,8 @@ def average_sale_per_customer(data):
     num_sales_recent = SHEET.worksheet('sales figures').col_values(3)[-1]
 
     apc = int(sum_sales_recent) / int(num_sales_recent)
-
     dependents1.append(apc)
+
     return dependents1
 
 
@@ -158,8 +170,8 @@ def sales_expectation(data):
     target_sum_sales = SHEET.worksheet('sum sales target').col_values(1)[-1]
 
     exp = ((int(sum_sales_recent) - float(target_sum_sales)) / float(target_sum_sales)) * 100
-
     dependents1.append(exp)
+
     return dependents1
 
 
@@ -177,7 +189,6 @@ def next_sum_sales_target():
             total += int(sum_sales[i])
     
     next_sales_target = total / 5
-    
     dependents2.append(next_sales_target)
 
     return dependents2
@@ -234,16 +245,15 @@ def options():
     print("Worksheet has been updated with new sales figures, KPIs and sales target.")
     print("Select from the menu below, What you would like to do next.")
 
-    print("""
-    ----------------------MENU-----------------------
-    1. View updated sales figures\n\
-    2. View updated KPIs\n\
-    3. View next day sales target\n\
-    4. Reset most recent sales figures and KPIs\n\
-    5. Exit\n
-    """)
-
     while True:
+        print("""
+        ----------------------MENU-----------------------
+        1. View updated sales figures\n\
+        2. View updated KPIs\n\
+        3. View next day sales target\n\
+        4. Reset most recent sales figures and KPIs\n\
+        5. Exit\n
+        """)
         user_choice = int(input("\nWhich task would you like to complete: \n"))
         if user_choice == 1:
             print("\nOkay, here are the sales figures you submitted today...\n")
