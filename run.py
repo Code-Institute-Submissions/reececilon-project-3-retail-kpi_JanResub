@@ -15,7 +15,9 @@ SHEET = GSPREAD_CLIENT.open('Retailing')
 
 def begin():
     """
-    Starts the application, allowing the user to choose what they would like to do.
+    Starts the application,
+    allowing the user to choose
+    what they would like to do.
     """
 
     while True:
@@ -33,7 +35,6 @@ def begin():
             break
         elif user_choice == 2:
             sales_target = SHEET.worksheet('sum sales target').col_values(1)[-1]
-            
             print("Here is today's sales target in £: ")
             print(sales_target)
         elif user_choice == 3:
@@ -57,7 +58,7 @@ def exit_program():
 
 def list_sales_figures(ldata, data):
     """
-    Lists the inputs required for the worksheet and validates the input data 
+    Lists the inputs required for the worksheet and validates the input data
     to prevent negative and non-integer values from being passed
     """
 
@@ -82,8 +83,6 @@ def list_sales_figures(ldata, data):
         except Exception as e:
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
-
-        
 
     independents.append(data_type)
 
@@ -173,7 +172,7 @@ def next_sum_sales_target():
     for i in range(len(sum_sales)):
         if (len(sum_sales) - i) <= 5:
             total += int(sum_sales[i])
-    
+
     next_sales_target = total / 5
     dependents2.append(next_sales_target)
 
@@ -194,23 +193,25 @@ def view_worksheet(data):
         value2 = val.col_values(ind)[-1]
         list1.append(value1)
         list2.append(value2)
-    
-    request = zip(list1,list2)
+    request = zip(list1, list2)
 
     print(dict(request))
 
 
 def reset():
-    
+    """
+    Resets the Input sales figures, calculated KPIs and the next day sales target.
+    """
+
     collumn1 = SHEET.worksheet('sales figures').col_values(1)
     last_row1 = len(collumn1)
-    
+
     print("Today's sales figures have been reset.")
     wsheet_sales = SHEET.worksheet('sales figures').delete_rows(last_row1)
 
     collumn2 = SHEET.worksheet('KPIs').col_values(1)
     last_row2 = len(collumn2)
-    
+
     print("KPIs for today have been reset.")
     wsheet_kpi = SHEET.worksheet('KPIs').delete_rows(last_row2)
 
@@ -269,7 +270,7 @@ def main():
     The main function that calls functions for core purpose of app
     """
 
-    independs = [] 
+    independs = []
     footfall = list_sales_figures(independs, "footfall")
     total_sales = list_sales_figures(footfall, "sum sales")
     num_sales = list_sales_figures(total_sales, "num sales")
