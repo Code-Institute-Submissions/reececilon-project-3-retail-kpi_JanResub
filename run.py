@@ -55,7 +55,7 @@ def exit_program():
     print("-----------------------GOODBYE------------------------")
 
 
-def list_retail_independents(ldata, data):
+def list_sales_figures(ldata, data):
     """
     Lists the inputs required for the worksheet and validates the input data 
     to prevent negative and non-integer values from being passed
@@ -270,10 +270,10 @@ def main():
     """
 
     independs = [] 
-    footfall = list_retail_independents(independs, "footfall")
-    total_sales = list_retail_independents(footfall, "sum sales")
-    num_sales = list_retail_independents(total_sales, "num sales")
-    sales_data = list_retail_independents(num_sales, "num items sold")
+    footfall = list_sales_figures(independs, "footfall")
+    total_sales = list_sales_figures(footfall, "sum sales")
+    num_sales = list_sales_figures(total_sales, "num sales")
+    sales_data = list_sales_figures(num_sales, "num items sold")
     add_to_worksheet(sales_data, 'sales figures')
     con = conversion()
     ipc = items_per_customer(con)
