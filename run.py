@@ -11,6 +11,9 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Retailing')
+SALES_FIGURE_SHEET = SHEET.worksheet('sales figures')
+KPI_SHEET = SHEET.worksheet('KPIs')
+SS_TARGET_SHEET = SHEET.worksheet('sum sales target')
 
 
 def begin():
@@ -34,15 +37,15 @@ def begin():
             main()
             break
         elif user_choice == 2:
-            sales_target = SHEET.worksheet('sum sales target').col_values(1)[-1]
+            sales_sheet = SS_TARGET_SHEET.col_values(1)[-1]
             print("Here is today's sales target in £: ")
-            print(sales_target)
+            print(sales_sheet)
         elif user_choice == 3:
             print("You chose to exit this app...")
             exit_program()
             break
         else:
-            print("Invalid choice. Please choose from the menu above a number from 1 to 3.\n")
+            print("Invalid choice. Please choose a number 1- 3.\n")
 
 
 def exit_program():
@@ -58,16 +61,18 @@ def exit_program():
 
 def list_sales_figures(ldata, data):
     """
-    Lists the inputs required for the worksheet and validates the input data
-    to prevent negative and non-integer values from being passed
+    Lists the inputs required for
+    the worksheet and validates the input data
+    to prevent negative and non-integer
+    values from being passed
     """
 
     independents = ldata
 
     if len(independents) == 0:
-        print("Footfall is the number of clients or customers that enter the store.")
+        print("Footfall is the number of customers that enter the store.")
     elif len(independents) == 1:
-        print("\nsum sales is the total income or revenue made during business hours.")
+        print("\nsum sales is the revenue made during business hours.")
         print("Measured in £")
     elif len(independents) == 2:
         print("\nnum sales is the number of customers that made a purchase.")
@@ -102,12 +107,14 @@ def add_to_worksheet(data, sheet):
 
 def conversion():
     """
-    Conversion is the number of customers that enter the store and make a purchase as a percentage.
+    Conversion is the number of customers
+    that enter the store and make a purchase
+    as a percentage.
     """
 
     dependents1 = []
-    f_fall_recent = SHEET.worksheet('sales figures').col_values(1)[-1]
-    num_sales_recent = SHEET.worksheet('sales figures').col_values(3)[-1]
+    f_fall_recent = SALES_FIGURE_SHEET.col_values(1)[-1]
+    num_sales_recent = SALES_FIGURE_SHEET.col_values(3)[-1]
 
     conversion = int(num_sales_recent) / int(f_fall_recent) * 100
     dependents1.append(conversion)
@@ -117,12 +124,13 @@ def conversion():
 
 def items_per_customer(data):
     """
-    Calculates the items per customer: IPC. and appends to the dependents list
+    Calculates the items per customer: IPC
+    and appends to the KPIs list.
     """
 
     dependents1 = data
-    total_items_sold_recent = SHEET.worksheet('sales figures').col_values(4)[-1]
-    num_sales_recent = SHEET.worksheet('sales figures').col_values(3)[-1]
+    total_items_sold_recent = SALES_FIGURE_SHEET.col_values(4)[-1]
+    num_sales_recent = SALES_FIGURE_SHEET.col_values(3)[-1]
 
     ipc = int(total_items_sold_recent) / int(num_sales_recent)
     dependents1.append(ipc)
@@ -132,12 +140,13 @@ def items_per_customer(data):
 
 def average_sale_per_customer(data):
     """
-    Calculates the average sale per customer: APC. and then appends this to the dependents list.
+    Calculates the average sale per customer: APC
+    and then appends this to the dependents list.
     """
 
     dependents1 = data
-    sum_sales_recent = SHEET.worksheet('sales figures').col_values(2)[-1]
-    num_sales_recent = SHEET.worksheet('sales figures').col_values(3)[-1]
+    sum_sales_recent = SALES_FIGURE_SHEET.col_values(2)[-1]
+    num_sales_recent = SALES_FIGURE_SHEET.col_values(3)[-1]
 
     apc = int(sum_sales_recent) / int(num_sales_recent)
     dependents1.append(apc)
@@ -147,14 +156,16 @@ def average_sale_per_customer(data):
 
 def sales_expectation(data):
     """
-    compares the sum sales to the target sum sales to quantify how they vary as a percentage
+    compares the sum sales to the target sum sales
+    to quantify how they vary as a percentage.
     """
 
     dependents1 = data
-    sum_sales_recent = SHEET.worksheet('sales figures').col_values(2)[-1]
-    target_sum_sales = SHEET.worksheet('sum sales target').col_values(1)[-1]
+    sum_sales_recent = SALES_FIGURE_SHEET.col_values(2)[-1]
+    target_sum_sales = SS_TARGET_SHEET.col_values(1)[-1]
 
-    exp = ((int(sum_sales_recent) - float(target_sum_sales)) / float(target_sum_sales)) * 100
+    dif = (int(sum_sales_recent) - float(target_sum_sales))
+    exp = (dif / float(target_sum_sales)) * 100
     dependents1.append(exp)
 
     return dependents1
@@ -162,11 +173,12 @@ def sales_expectation(data):
 
 def next_sum_sales_target():
     """
-    calculates the next days target sales by taking an average of the 5 sum sales
+    calculates the next days target sales
+    by taking an average of the 5 sum sales.
     """
 
     dependents2 = []
-    sum_sales = SHEET.worksheet('sales figures').col_values(2)
+    sum_sales = SALES_FIGURE_SHEET.col_values(2)
     total = 0
 
     for i in range(len(sum_sales)):
@@ -181,7 +193,8 @@ def next_sum_sales_target():
 
 def view_worksheet(data):
     """
-    Allows the user to view most recently updated worksheet data
+    Allows the user to view most
+    recently updated worksheet data
     """
 
     list1 = []
@@ -200,26 +213,27 @@ def view_worksheet(data):
 
 def reset():
     """
-    Resets the Input sales figures, calculated KPIs and the next day sales target.
+    Resets the Input sales figures,
+    calculated KPIs and the next day sales target.
     """
 
-    collumn1 = SHEET.worksheet('sales figures').col_values(1)
+    collumn1 = SALES_FIGURE_SHEET.col_values(1)
     last_row1 = len(collumn1)
 
     print("Today's sales figures have been reset.")
-    wsheet_sales = SHEET.worksheet('sales figures').delete_rows(last_row1)
+    wsheet_sales = SALES_FIGURE_SHEET.delete_rows(last_row1)
 
-    collumn2 = SHEET.worksheet('KPIs').col_values(1)
+    collumn2 = KPI_SHEET.col_values(1)
     last_row2 = len(collumn2)
 
     print("KPIs for today have been reset.")
-    wsheet_kpi = SHEET.worksheet('KPIs').delete_rows(last_row2)
+    wsheet_kpi = KPI_SHEET.delete_rows(last_row2)
 
-    collumn3 = SHEET.worksheet('sum sales target').col_values(1)
+    collumn3 = SS_TARGET_SHEET.col_values(1)
     last_row3 = len(collumn3)
 
     print("Recent sum sales target has been reset.")
-    wsheet_target = SHEET.worksheet('sum sales target').delete_rows(last_row3)
+    wsheet_target = SS_TARGET_SHEET.delete_rows(last_row3)
 
     begin()
 
@@ -229,7 +243,7 @@ def options():
     Gives the user further options to choose from
     """
 
-    print("Worksheet has been updated with new sales figures, KPIs and sales target.")
+    print("Sales figures, KPIs and sales target have been updated.")
     print("Select from the menu below, What you would like to do next.")
 
     while True:
@@ -243,7 +257,7 @@ def options():
         """)
         user_choice = int(input("\nWhich task would you like to complete: \n"))
         if user_choice == 1:
-            print("\nOkay, here are the sales figures you submitted today...\n")
+            print("\nOkay, here are the sales figures for today...\n")
             view_worksheet("sales figures")
         elif user_choice == 2:
             print("\nOkay, here are the updated KPIs from today...\n")
@@ -251,7 +265,7 @@ def options():
         elif user_choice == 3:
             print("\nOkay, here is the sales target for tomorrow,")
             print("measured in £:\n")
-            sales_target = SHEET.worksheet("sum sales target").col_values(1)[-1]
+            sales_target = SS_TARGET_SHEET.col_values(1)[-1]
             print(f'Next Trg: {sales_target}')
         elif user_choice == 4:
             print("\nRight, I will reset the last sales figures and KPIs...\n")
@@ -262,7 +276,7 @@ def options():
             exit_program()
             break
         else:
-            print("Invalid choice. Please choose from the menu above a number from 1 to 5.\n")
+            print("Invalid choice. Please choose a number from 1 to 5.\n")
 
 
 def main():
