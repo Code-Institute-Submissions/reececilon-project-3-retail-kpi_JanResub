@@ -15,7 +15,7 @@ SHEET = GSPREAD_CLIENT.open('Retailing')
 
 def begin():
     """
-    Starts the application, allowing the user to chose what they would like to do would like to do
+    Starts the application, allowing the user to choose what they would like to do.
     """
 
     while True:
@@ -57,7 +57,8 @@ def exit_program():
 
 def list_retail_independents(ldata, data):
     """
-    Lists the inputs required for the worksheet
+    Lists the inputs required for the worksheet and validates the input data 
+    to prevent negative and non-integer values from being passed
     """
 
     independents = ldata
@@ -89,22 +90,6 @@ def list_retail_independents(ldata, data):
     return independents
 
 
-def convert_to_int(data):
-    """
-    Converts the sales_figures list items into integers and checks that data is valid by throwing an error when data is invalid
-    """
-
-    try:
-        int_list = []
-        for ind in data:
-            int_list.append(int(ind))
-    except:
-        print("Invalid input! Input values must be integer values. Please try again.")
-        main()
-
-    return int_list
-
-
 def add_to_worksheet(data, sheet):
     """
     Updates the worksheet with the inputs
@@ -118,7 +103,7 @@ def add_to_worksheet(data, sheet):
 
 def conversion():
     """
-    Conversion is the number of customers that enter the store and make a purchase
+    Conversion is the number of customers that enter the store and make a purchase as a percentage.
     """
 
     dependents1 = []
@@ -288,14 +273,13 @@ def main():
     footfall = list_retail_independents(independs, "footfall")
     total_sales = list_retail_independents(footfall, "sum sales")
     num_sales = list_retail_independents(total_sales, "num sales")
-    sales_figures = list_retail_independents(num_sales, "num items sold")
-    ind_data = convert_to_int(sales_figures)
-    add_to_worksheet(ind_data, 'sales figures')
-    convert = conversion()
-    ipc = items_per_customer(convert)
+    sales_data = list_retail_independents(num_sales, "num items sold")
+    add_to_worksheet(sales_data, 'sales figures')
+    con = conversion()
+    ipc = items_per_customer(con)
     apc = average_sale_per_customer(ipc)
-    dep1 = sales_expectation(apc)
-    add_to_worksheet(dep1, 'KPIs')
+    exp = sales_expectation(apc)
+    add_to_worksheet(exp, 'KPIs')
     next_sum = next_sum_sales_target()
     add_to_worksheet(next_sum, 'sum sales target')
     options()
