@@ -11,12 +11,12 @@ Retail KPIs is an app designed for retailers to analyse customer data and calcul
 
 ### Sales Figures
 
-|  Footfall |  Sum sales £ |  Num sales |  num items sold |
+|Footfall|Sum sales £|Num sales|num items sold|
 |---|---|---|---|
-|  300 |  40000 |  80 |  240 |
-|  354 |  53000 |  124 |  266 |
-|  300 |  40000 |  80 |  240 |
-|  353 |  52000 |  75 | 233  |
+|300|40000|80|240|
+|354|53000|124|266|
+|300|40000|80|240|
+|353|52000|75|233|
 
 ### KPIs
 
