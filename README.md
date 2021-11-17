@@ -7,6 +7,10 @@ Retail KPIs is an app designed for retailers to analyse customer data and calcul
 
 <img src="assets/images/structure.png" alt="Flowchart showing the application structure">
 
+The image above shows the application structure. This represents how the user will use the app, and the processes they will go through.
+The red square always represents a menu, where the user is able to choose what to do from a menu of options. The blue curved shapes show the functions that are being used within the app. Here there are several different functions that are used within the app. Somtimes the same function is used more than once and the order that it is used is shown on the arrows attached to the function. The yellow vertical squares show where the user is required to input a value to be added to the spreadsheet. Green hexagons show where the user is able to view some data. There is a two way arrow attached to these shapes showing that they are able to go back to the menu of options after viewing this. 
+Red circles represent where the user has chosen to exit the app. 
+
 ## Database Structure
 
 ### Sales Figures
@@ -14,27 +18,27 @@ Retail KPIs is an app designed for retailers to analyse customer data and calcul
 |Footfall|Sum sales £|Num sales|num items sold|
 |---|---|---|---|
 |300|40000|80|240|
-|354|53000|124|266|
-|300|40000|80|240|
+|340|53000|124|266|
+|320|45000|80|240|
 |353|52000|75|233|
 
 ### KPIs
 
 |Conversion %|IPC|APC £|Sales EXP %|
 |---|---|---|---|
-|27|3|500|-19|
-|25|3|529|-3.48|
-|27|3|500|-19|
-|25|3|529|-3.48|
-|25|3|529|-3.48|
+|22|2|500|-19|
+|24|2|529|-3|
+|24|2|515|-15|
+|25|3|530|-4.2|
+|27|3|529|-3.5|
 
 ### Sum Sales Target
 
 |Next Trg £|
 |---|
-|47600|
-|47600|
-|47600|
-|47600|
-|47600|
+|42000|
+|44000|
+|45000|
+|46500|
+|47200|
 |47600|
