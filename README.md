@@ -9,9 +9,32 @@ Retail KPIs is an app designed for retailers to analyse customer data and calcul
 
 ## Database Structure
 
+### Sales Figures
+
 |  Footfall |  Sum sales £ |  Num sales |  num items sold |
 |---|---|---|---|
 |  300 |  40000 |  80 |  240 |
 |  354 |  53000 |  124 |  266 |
 |  300 |  40000 |  80 |  240 |
 |  353 |  52000 |  75 | 233  |
+
+### KPIs
+
+|Conversion %|IPC|APC £|Sales EXP %|
+|---|---|---|---|
+|27|3|500|-19|
+|25|3|529|-3.48|
+|27|3|500|-19|
+|25|3|529|-3.48|
+|25|3|529|-3.48|
+
+### Sum Sales Target
+
+|Next Trg £|
+|---|
+|47600|
+|47600|
+|47600|
+|47600|
+|47600|
+|47600|
