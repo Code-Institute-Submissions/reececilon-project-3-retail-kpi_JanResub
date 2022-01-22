@@ -31,21 +31,22 @@ def begin():
         3. Exit\n
         """)
 
-        user_choice = int(input("\nWhich task would you like to complete: \n"))
-        if user_choice == 1:
+        user_choice = input("\nWhich task would you like to complete: \n")
+        if user_choice == '1':
             print("\nOkay, ready to input today's sales figures...\n")
             main()
             break
-        elif user_choice == 2:
+        elif user_choice == '2':
             sales_sheet = SS_TARGET_SHEET.col_values(1)[-1]
             print("Here is today's sales target in £: ")
             print(sales_sheet)
-        elif user_choice == 3:
+        elif user_choice == '3':
             print("You chose to exit this app...")
             exit_program()
             break
         else:
             print("Invalid choice. Please choose a number 1- 3.\n")
+        
 
 
 def exit_program():
@@ -255,23 +256,23 @@ def options():
         4. Reset most recent sales figures and KPIs\n\
         5. Exit\n
         """)
-        user_choice = int(input("\nWhich task would you like to complete: \n"))
-        if user_choice == 1:
+        user_choice = input("\nWhich task would you like to complete: \n")
+        if user_choice == '1':
             print("\nOkay, here are the sales figures for today...\n")
             view_worksheet("sales figures")
-        elif user_choice == 2:
+        elif user_choice == '2':
             print("\nOkay, here are the updated KPIs from today...\n")
             view_worksheet("KPIs")
-        elif user_choice == 3:
+        elif user_choice == '3':
             print("\nOkay, here is the sales target for tomorrow,")
             print("measured in £:\n")
             sales_target = SS_TARGET_SHEET.col_values(1)[-1]
             print(f'Next Trg: {sales_target}')
-        elif user_choice == 4:
+        elif user_choice == '4':
             print("\nRight, I will reset the last sales figures and KPIs...\n")
             reset()
             break
-        elif user_choice == 5:
+        elif user_choice == '5':
             print("\nYou chose to exit this app...")
             exit_program()
             break
