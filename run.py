@@ -81,10 +81,10 @@ def list_sales_figures(ldata, data):
         print("\nnum items is the total number of items sold.")
 
     data_type = "strings"
-    while data_type.isdigit() == False:
+    while data_type.isfloat == False:
         data_type = input(f'Submit {data}:\n')
 
-        if data_type.isdigit() == False:
+        if data_type.isfloat() == False:
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
 
