@@ -82,7 +82,7 @@ def list_sales_figures(ldata, data):
 
     while True:
         try:
-        return input_type (input(message))
+            return input_type (input(message))
         except:pass
 
         if __name__ == '__main__':
