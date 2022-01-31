@@ -90,7 +90,7 @@ def list_sales_figures(ldata, data):
     while True:
         try:
             data_type = float(input(f'Submit {data}:\n'))
-            if data_type <= 0:
+            if data_type < 0:
                 print("You must input a positive value.")
                 data_type = float(input(f'Submit {data}:\n'))
             else:
