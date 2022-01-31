@@ -80,13 +80,19 @@ def list_sales_figures(ldata, data):
     else:
         print("\nnum items is the total number of items sold.")
 
-    while True:
+#   while True:
+#       try:
+#           data_type = int(input(f'Submit {data}:\n'))
+#           if data_type > 0:
+#               break
+#           print(f'{data} cannot be a negative value. Please try again.')
+#       except Exception as e:
+#           print(f'{data_type} is not an integer.')
+#           print(f'{data} must be an integer number. Please try again.')
+
         try:
             data_type = int(input(f'Submit {data}:\n'))
-            if data_type > 0:
-                break
-            print(f'{data} cannot be a negative value. Please try again.')
-        except Exception as e:
+        except ValueError:
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
 
