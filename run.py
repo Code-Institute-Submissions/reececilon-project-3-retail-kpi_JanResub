@@ -83,9 +83,9 @@ def list_sales_figures(ldata, data):
     while True:
         try:
             data_type = int(input(f'Submit {data}:\n'))
-            if data_type > 0:
-                break
-            print(f'{data} must be greater than 0. Please try again.')
+#            if data_type > 0:
+#                break
+#            print(f'{data} must be greater than 0. Please try again.')
         except Exception as e:
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
