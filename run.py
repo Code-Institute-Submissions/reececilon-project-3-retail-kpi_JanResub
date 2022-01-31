@@ -80,13 +80,6 @@ def list_sales_figures(ldata, data):
     else:
         print("\nnum items is the total number of items sold.")
 
-    #data_type = "strings"
-    #while data_type.isdigit() == False:
-        #data_type = input(f'Submit {data}:\n')
-
-        #if data_type.isdigit() == False:
-            #print(f'{data_type} is not an integer.')
-            #print(f'{data} must be an integer number. Please try again.')
     while True:
         try:
             data_type = float(input(f'Submit {data}:\n'))
@@ -125,7 +118,7 @@ def conversion():
     f_fall_recent = SALES_FIGURE_SHEET.col_values(1)[-1]
     num_sales_recent = SALES_FIGURE_SHEET.col_values(3)[-1]
 
-    conversion = int(num_sales_recent) / int(f_fall_recent) * 100
+    conversion = float(num_sales_recent) / float(f_fall_recent) * 100
     dependents1.append(conversion)
 
     return dependents1
@@ -141,7 +134,7 @@ def items_per_customer(data):
     total_items_sold_recent = SALES_FIGURE_SHEET.col_values(4)[-1]
     num_sales_recent = SALES_FIGURE_SHEET.col_values(3)[-1]
 
-    ipc = int(total_items_sold_recent) / int(num_sales_recent)
+    ipc = float(total_items_sold_recent) / float(num_sales_recent)
     dependents1.append(ipc)
 
     return dependents1
@@ -157,7 +150,7 @@ def average_sale_per_customer(data):
     sum_sales_recent = SALES_FIGURE_SHEET.col_values(2)[-1]
     num_sales_recent = SALES_FIGURE_SHEET.col_values(3)[-1]
 
-    apc = int(sum_sales_recent) / int(num_sales_recent)
+    apc = float(sum_sales_recent) / float(num_sales_recent)
     dependents1.append(apc)
 
     return dependents1
@@ -173,7 +166,7 @@ def sales_expectation(data):
     sum_sales_recent = SALES_FIGURE_SHEET.col_values(2)[-1]
     target_sum_sales = SS_TARGET_SHEET.col_values(1)[-1]
 
-    dif = (int(sum_sales_recent) - float(target_sum_sales))
+    dif = (float(sum_sales_recent) - float(target_sum_sales))
     exp = (dif / float(target_sum_sales)) * 100
     dependents1.append(exp)
 
@@ -192,7 +185,7 @@ def next_sum_sales_target():
 
     for i in range(len(sum_sales)):
         if (len(sum_sales) - i) <= 5:
-            total += int(sum_sales[i])
+            total += float(sum_sales[i])
 
     next_sales_target = total / 5
     dependents2.append(next_sales_target)
