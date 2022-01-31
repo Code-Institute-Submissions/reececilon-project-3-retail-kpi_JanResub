@@ -87,9 +87,8 @@ def list_sales_figures(ldata, data):
         if data_type.isdigit() == False:
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
-        else:
-            return int(data_type)
 
+    print(data_type)
     independents.append(data_type)
 
     return independents
