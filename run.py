@@ -91,7 +91,7 @@ def list_sales_figures(ldata, data):
         try:
             data_type = float(input(f'Submit {data}:\n'))
             if data_type <= 0:
-                print("You must input a positive value.")
+                print("You must input a number greater than 0.")
                 data_type = float(input(f'Submit {data}:\n'))
             else:
                 break
