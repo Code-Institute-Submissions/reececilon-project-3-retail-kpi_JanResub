@@ -46,7 +46,6 @@ def begin():
             break
         else:
             print("Invalid choice. Please choose a number 1- 3.\n")
-        
 
 
 def exit_program():
