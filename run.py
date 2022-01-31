@@ -82,7 +82,7 @@ def list_sales_figures(ldata, data):
 
     data_type = "strings"
     while data_type.isdigit() == False:
-        data_type = int(input(f'Submit {data}:\n'))
+        data_type = input(f'Submit {data}:\n')
 
         if data_type.isdigit() == False:
             print(f'{data_type} is not an integer.')
