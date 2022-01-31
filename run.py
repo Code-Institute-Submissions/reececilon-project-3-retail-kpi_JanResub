@@ -80,24 +80,15 @@ def list_sales_figures(ldata, data):
     else:
         print("\nnum items is the total number of items sold.")
 
-    while True:
-        try:
-            return input_type (input(message))
-        except:pass
+    data_type = "strings"
+    while data_type.isdigit() == False:
+        data_type = int(input(f'Submit {data}:\n'))
 
-        if __name__ == '__main__':
-            _input("Only accepting integer : ", int)
-            _input("Only accepting float : ", float)
-            _input("Accepting anything as string : ")
-#        try:
-#            data_type = int(input(f'Submit {data}:\n'))
-#            if data_type > 0:
-#                break
-#            print(f'{data} must be greater than 0. Please try again.')
-#        except Exception as e:
-#            print(f'{data_type} is not an integer.')
-#            print(f'{data} must be an integer number. Please try again.')
-
+        if data_type.isdigit() == False:
+            print(f'{data_type} is not an integer.')
+            print(f'{data} must be an integer number. Please try again.')
+        else:
+            return int(data_type)
 
     independents.append(data_type)
 
