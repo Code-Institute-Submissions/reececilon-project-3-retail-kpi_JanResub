@@ -94,7 +94,7 @@ def list_sales_figures(ldata, data):
             if data_type > 0:
                 break
             print(f'{data} must be greater than 0. Please try again.')
-        except Exception as e:
+        except ValueError:
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
 
