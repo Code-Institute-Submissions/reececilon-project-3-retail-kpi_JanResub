@@ -88,10 +88,9 @@ def list_sales_figures(ldata, data):
             print(f'{data_type} is not an integer.')
             print(f'{data} must be an integer number. Please try again.')
 
-    print(data_type)
-#    independents.append(data_type)
+    independents.append(data_type)
 
-#    return independents
+    return independents
 
 
 def add_to_worksheet(data, sheet):
